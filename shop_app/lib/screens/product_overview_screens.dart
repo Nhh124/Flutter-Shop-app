@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import '../widgets/product_item.dart';
-
 import '../models/product.dart';
+import '../widgets/product_item.dart';
 
 class ProductOverviewScreen extends StatelessWidget {
   ProductOverviewScreen({super.key});
@@ -54,11 +53,11 @@ class ProductOverviewScreen extends StatelessWidget {
             id: loadedProduct[index].id,
             title: loadedProduct[index].title,
             imageUrl: loadedProduct[index].imageUrl),
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           childAspectRatio: 3 / 2,
-          crossAxisSpacing: size.width * 0.04,
-          mainAxisSpacing: size.width * 0.04,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
         ),
       ),
     );
