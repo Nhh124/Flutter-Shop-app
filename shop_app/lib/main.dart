@@ -8,7 +8,7 @@ import 'provider/cart.dart';
 import 'screens/cart_screen.dart';
 import 'provider/products_provider.dart';
 import 'screens/product_detail_screen.dart';
-import 'screens/product_overview_screen.dart';
+import 'screens/auth_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
           ).copyWith(secondary: Colors.deepOrange),
           fontFamily: 'Lato',
         ),
-        home: const ProductOverviewScreen(),
+        home: AuthScreen(),
         routes: {
           ProductDetailScreen.routeName: (context) =>
               const ProductDetailScreen(),

@@ -59,7 +59,6 @@ class _OrdersScreenState extends State<OrdersScreen> {
                 );
               }
             }
-            return const Center();
           }),
         ),
       ),
