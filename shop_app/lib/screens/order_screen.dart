@@ -13,24 +13,20 @@ class OrdersScreen extends StatefulWidget {
 }
 
 class _OrdersScreenState extends State<OrdersScreen> {
-  var _isLoading = false;
+  late Future _orderFuture;
+  Future _obtainOrdersFuture() {
+    return Provider.of<Order>(context, listen: false).fetchAndSetOrders();
+  }
+
   @override
   void initState() {
-    Future.delayed(Duration.zero).then((value) async {
-      setState(() {
-        _isLoading = true;
-      });
-      await Provider.of<Order>(context, listen: false).fetchAndSetOrders();
-      setState(() {
-        _isLoading = false;
-      });
-    });
+    _orderFuture = _obtainOrdersFuture();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final orderData = Provider.of<Order>(context);
+    // final orderData = Provider.of<Order>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -40,16 +36,32 @@ class _OrdersScreenState extends State<OrdersScreen> {
       body: SizedBox(
         height: double.infinity,
         width: double.infinity,
-        child: _isLoading
-            ? const Center(
-                child: CircularProgressIndicator(),
-              )
-            : ListView.builder(
-                itemCount: orderData.orders.length,
-                itemBuilder: (context, index) => OrderItem(
-                  order: orderData.orders[index],
-                ),
-              ),
+        child: FutureBuilder(
+          future: _orderFuture,
+          builder: ((context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else {
+              if (snapshot.error != null) {
+                return const Center(
+                  child: Text('Error'),
+                );
+              } else {
+                return Consumer<Order>(
+                  builder: (context, orderData, child) {
+                    return ListView.builder(
+                      itemCount: orderData.orders.length,
+                      itemBuilder: (context, index) => OrderItem(
+                        order: orderData.orders[index],
+                      ),
+                    );
+                  },
+                );
+              }
+            }
+            return const Center();
+          }),
+        ),
       ),
     );
   }
