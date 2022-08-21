@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "350331268486",
+    "firebase_url": "https://flutter-shop-app-48645-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "flutter-shop-app-48645",
+    "storage_bucket": "flutter-shop-app-48645.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:350331268486:android:8df5b32a87c09307c0d007",
+        "android_client_info": {
+          "package_name": "com.shopapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "350331268486-bjjnsaea54b7sbm0rv1s0vq2n4vn45sm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shopapp",
+            "certificate_hash": "f9378769b1c6ac555193f58e75fe3335df313cdd"
+          }
+        },
+        {
+          "client_id": "350331268486-oa193hr2972fjrg3tgu5tbms4j2ammbj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_LkTG29DarGFEiwvbn4ZL8p50r-eUzrg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "350331268486-oa193hr2972fjrg3tgu5tbms4j2ammbj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
