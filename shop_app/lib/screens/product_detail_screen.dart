@@ -25,7 +25,10 @@ class ProductDetailScreen extends StatelessWidget {
               expandedHeight: 300,
               pinned: true,
               flexibleSpace: FlexibleSpaceBar(
-                title: Text(loadedProduct.title),
+                title: Text(
+                  loadedProduct.title,
+                  style: const TextStyle(backgroundColor: Colors.black54),
+                ),
                 background: Column(
                   children: [
                     SizedBox(

@@ -6,6 +6,7 @@ import '/screens/splash_screen.dart';
 import '/screens/edit_product.dart';
 import '/screens/user_products_screen.dart';
 import '/screens/order_screen.dart';
+import 'helpers/custom_route.dart';
 import 'provider/orders.dart';
 import 'provider/cart.dart';
 import 'screens/cart_screen.dart';
@@ -53,6 +54,10 @@ class MyApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               title: 'MyShop',
               theme: ThemeData(
+                pageTransitionsTheme: PageTransitionsTheme(builders: {
+                  TargetPlatform.android: CustomPageTransitionBuilder(),
+                  TargetPlatform.iOS: CustomPageTransitionBuilder(),
+                }),
                 textTheme: Typography.blackHelsinki,
                 colorScheme: ColorScheme.fromSwatch(
                   primarySwatch: Colors.purple,
