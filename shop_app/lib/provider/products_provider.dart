@@ -76,14 +76,16 @@ class Products with ChangeNotifier {
   //   notifyListeners();
   // }
 
-  Future<void> fecthAndSetProducts() async {
-    final urllogin =
-        'https://flutter-shop-app-48645-default-rtdb.asia-southeast1.firebasedatabase.app/products.json?auth=$authToken';
-
+  Future<void> fecthAndSetProducts([bool filterByUser = false]) async {
+    final filterString =
+        filterByUser ? 'orderBy="creatorId"&equalTo="$userId"' : '';
+    var url =
+        'https://flutter-shop-app-48645-default-rtdb.asia-southeast1.firebasedatabase.app/products.json?auth=$authToken&$filterString';
     try {
-      final response = await http.get(Uri.parse(urllogin));
+      final response = await http.get(Uri.parse(url));
 
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
+
       if (extractedData.isEmpty || extractedData['error'] != null) {
         return;
       }
@@ -91,19 +93,26 @@ class Products with ChangeNotifier {
           'https://flutter-shop-app-48645-default-rtdb.asia-southeast1.firebasedatabase.app/userFavorites/$userId.json?auth=$authToken';
       final favoriteResponse = await http.get(Uri.parse(urlfavorites));
       final favoriteData = json.decode(favoriteResponse.body);
-
       final List<Product> loadedProducts = [];
-      extractedData.forEach((prodId, prodData) {
-        loadedProducts.add(Product(
-            id: prodId,
-            title: prodData['title'],
-            description: prodData['description'],
-            price: prodData['price'],
-            isFavorite: favoriteData == null
-                ? false
-                : favoriteData[prodId]['isFavorite'] ?? false,
-            imageUrl: prodData['imageUrl']));
-      });
+
+      extractedData.forEach(
+        (prodId, prodData) async {
+          loadedProducts.add(
+            Product(
+              id: prodId,
+              title: prodData['title'],
+              description: prodData['description'],
+              price: prodData['price'],
+              imageUrl: prodData['imageIr'],
+              isFavorite: favoriteData == null
+                  ? false
+                  : favoriteData[prodId] == null
+                      ? false
+                      : favoriteData[prodId]['isFavorite'],
+            ),
+          );
+        },
+      );
 
       _items = loadedProducts;
       notifyListeners();
@@ -125,6 +134,7 @@ class Products with ChangeNotifier {
           'description': product.description,
           'imageUrl': product.imageUrl,
           'price': product.price,
+          'creatorId': userId,
         }),
       );
       final newProduct = Product(
