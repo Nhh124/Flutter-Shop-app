@@ -103,7 +103,7 @@ class Products with ChangeNotifier {
               title: prodData['title'],
               description: prodData['description'],
               price: prodData['price'],
-              imageUrl: prodData['imageIr'],
+              imageUrl: prodData['imageUrl'],
               isFavorite: favoriteData == null
                   ? false
                   : favoriteData[prodId] == null
